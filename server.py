@@ -37,6 +37,16 @@ def get_chain():
     }
     return FlaskAdapter().json_response(response), 200
 
+@app.route('/is_valid', methods = ['GET'])
+def is_valid():
+    '''returns if chain is valid'''
+    is_valid = blockchain.is_chain_valid(blockchain.chain)
+    if is_valid:
+        response = {'message': 'The blockchain is valid'}
+    else:
+        response = {'message': 'The blockchain is invalid'}
+    return FlaskAdapter().json_response(response), 200
+
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', port = '5000', debug = True)
